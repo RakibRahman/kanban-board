@@ -32,7 +32,7 @@ export const useStateContext = () => {
     return useContext(AppStateContext);
 };
 export const AppStateProvider: FC = ({ children }) => {
-    const [state, dispatch] = useReducer(appStateReducer, appData);
+    const [state, dispatch] = useImmerReducer(appStateReducer, appData);
     const { lists } = state;
     const getTasksByListId = (id: string) => {
         return lists.find((list) => list.id === id)?.tasks || [];
