@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom';
 import { App } from './App';
 // import { Counter } from './test';
 import { AppStateProvider } from './context/AppStateContext';
+import { DndProvider } from 'react-dnd';
+
+import { HTML5Backend as Backend } from 'react-dnd-html5-backend';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 ReactDOM.render(
     <React.StrictMode>
-        <AppStateProvider>
-            <App />
-        </AppStateProvider>
+        <DndProvider backend={Backend}>
+            <AppStateProvider>
+                <App />
+            </AppStateProvider>
+        </DndProvider>
     </React.StrictMode>,
     document.getElementById('root'),
 );

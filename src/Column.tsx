@@ -1,5 +1,6 @@
 import { ColumnContainer, ColumnTitle } from './styles';
-
+import { useRef } from 'react';
+import { useItemDrag } from './utils/useItemDrag';
 import { AddNewItem } from './AddNewItem';
 import { useStateContext } from './context/AppStateContext';
 import { addTask } from './context/actions';
@@ -11,10 +12,13 @@ type ColumnProps = {
 //! React.FC type to define the children prop on component.
 
 export const Column = ({ text, id }: ColumnProps) => {
-    const { getTasksByListId, dispatch } = useStateContext();
+    const { draggedItem, getTasksByListId, dispatch } = useStateContext();
     const tasks = getTasksByListId(id);
+    const ref = useRef<HTMLDivElement>(null);
+    const { drag } = useItemDrag({ type: 'Column', id, text });
+    drag(ref);
     return (
-        <ColumnContainer>
+        <ColumnContainer ref={ref}>
             <ColumnTitle>{text}</ColumnTitle>
             {tasks.map((task) => (
                 <Card text={task.text} id={task.id} key={task.id} />
