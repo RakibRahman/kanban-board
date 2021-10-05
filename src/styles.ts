@@ -10,6 +10,12 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Open Sans', sans-serif;
         color: #FFFF;
     }`;
+interface DragPreviewContainerProps {
+    isHidden?: boolean;
+}
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+    opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+`;
 
 export const AppContainer = styled.div`
     align-items: flex-start;
@@ -26,7 +32,7 @@ export const AppContainer = styled.div`
         place-items: center;
     }
 `;
-export const ColumnContainer = styled.div`
+export const ColumnContainer = styled(DragPreviewContainer)`
     background-color: #ebecf0;
     width: 300px;
     min-height: 40px;
@@ -34,7 +40,6 @@ export const ColumnContainer = styled.div`
     border-radius: 3px;
     padding: 8px 8px;
     flex-grow: 0;
-    color: #fff;
 `;
 export const ColumnTitle = styled.div`
     padding: 6px 16px 12px;
@@ -43,7 +48,7 @@ export const ColumnTitle = styled.div`
     font-size: 16px;
     letter-spacing: 1px;
 `;
-export const CardContainer = styled.div`
+export const CardContainer = styled(DragPreviewContainer)`
     background-color: #f14e0d;
     cursor: pointer;
     margin-bottom: 0.5rem;
@@ -93,4 +98,13 @@ export const NewItemInput = styled.input`
     margin-bottom: 0.5rem;
     padding: 0.5rem 1rem;
     width: 100%;
+`;
+export const CustomDragLayerContainer = styled.div`
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
 `;
