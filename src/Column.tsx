@@ -10,10 +10,11 @@ import { useDrop } from 'react-dnd';
 type ColumnProps = {
     text: string;
     id: string;
+    isPreview?: boolean;
 };
 //! React.FC type to define the children prop on component.
 
-export const Column = ({ text, id }: ColumnProps) => {
+export const Column = ({ text, id, isPreview }: ColumnProps) => {
     const { draggedItem, getTasksByListId, dispatch } = useStateContext();
     const tasks = getTasksByListId(id);
     const ref = useRef<HTMLDivElement>(null);
@@ -34,10 +35,10 @@ export const Column = ({ text, id }: ColumnProps) => {
     const { drag } = useItemDrag({ type: 'Column', id, text });
     drag(drop(ref));
     return (
-        <ColumnContainer ref={ref} isHidden={isHidden(draggedItem, 'Column', id)}>
+        <ColumnContainer isPreview={isPreview} ref={ref} isHidden={isHidden(draggedItem, 'Column', id, isPreview)}>
             <ColumnTitle>{text}</ColumnTitle>
             {tasks.map((task) => (
-                <Card text={task.text} id={task.id} key={task.id} />
+                <Card text={task.text} id={task.id} key={task.id} columnId={task.id} />
             ))}
             <AddNewItem toggleButtonText="➕ Add Another Task" onAdd={(text) => dispatch(addTask(text, id))} dark />
         </ColumnContainer>

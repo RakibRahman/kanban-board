@@ -6,6 +6,7 @@ import { Column } from './Column';
 
 import { AddNewItem } from './AddNewItem';
 import { addList } from './context/actions';
+import { CustomDragLayer } from './CustomDragLayer';
 export const App: React.FC = ({ children }) => {
     useEffect(() => {
         document.title = 'Kanban Board';
@@ -13,6 +14,7 @@ export const App: React.FC = ({ children }) => {
     const { lists, dispatch } = useStateContext();
     return (
         <AppContainer className="App">
+            <CustomDragLayer />
             {lists.map((list) => (
                 <Column text={list.text} key={list.id} id={list.id} />
             ))}
