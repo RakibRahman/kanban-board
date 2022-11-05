@@ -42,6 +42,27 @@ export const appStateReducer = (draft: AppState, action: Action): AppState | voi
             draft.lists = moveItem(draft.lists, dragIndex, hoverIndex);
             break;
         }
+        case 'Move_Task': {
+            const { draggedItemId, hoveredItemId, sourceColumnId, targetColumnId } = action.payload;
+            // console.log(action.payload)
+
+            // //! get source and target list
+            const sourceListIndex = findItemIndexById(draft.lists, sourceColumnId);
+            // console.log(source);
+            // const targetListIndex = findItemIndexById(draft.lists, targetColumnId);
+
+            // const dragIndex = findItemIndexById(draft.lists[sourceListIndex].tasks, draggedItemId);
+
+            // const hoverIndex = hoveredItemId ? findItemIndexById(draft.lists[targetListIndex].tasks, hoveredItemId) : 0;
+            // //!  return 0 if the index for the hoverId could not be found.
+
+            // const item = draft.lists[sourceListIndex].tasks[dragIndex];
+            // //! Remove the task from the source list
+            // draft.lists[sourceListIndex].tasks.splice(dragIndex, 1);
+            // //! Add the task to the target list
+            // draft.lists[targetListIndex].tasks.splice(hoverIndex, 0, item);
+            break;
+        }
         case 'Set_Dragged_Item': {
             draft.draggedItem = action.payload;
             break;

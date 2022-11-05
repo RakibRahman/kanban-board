@@ -10,7 +10,7 @@ const appData: AppState = {
         {
             id: '0',
             text: 'To DO',
-            tasks: [{ id: 'c0', text: 'Make typescript Project' }],
+            tasks: [{ id: 'c0', text: 'Make typescript Project' }, { id: 'c96', text: 'Make  Project' }],
         },
         {
             id: '1',
