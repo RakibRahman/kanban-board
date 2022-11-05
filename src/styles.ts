@@ -17,6 +17,7 @@ interface DragPreviewContainerProps {
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
     transform: ${(props) => (props.isPreview ? 'rotate(5deg)' : undefined)};
     opacity: ${(props) => (props.isHidden ? 0 : 1)};
+ overflow:'hidden',
 `;
 
 export const AppContainer = styled.div`
@@ -42,6 +43,8 @@ export const ColumnContainer = styled(DragPreviewContainer)`
     border-radius: 3px;
     padding: 8px 8px;
     flex-grow: 0;
+    overflow: hidden;
+    transition: all 10.2 ease-in-out;
 `;
 export const ColumnTitle = styled.div`
     padding: 6px 16px 12px;
@@ -57,7 +60,10 @@ export const CardContainer = styled(DragPreviewContainer)`
     padding: 0.5rem 1rem;
     max-width: 300px;
     border-radius: 3px;
+    overflow: hidden;
     box-shadow: #091e4240 0px 1px 0px 0px;
+    transition: all 10.2 ease-in-out;
+
 `;
 type AddItemButtonProps = {
     dark?: boolean;
@@ -121,4 +127,4 @@ export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(({ p
     style: {
         transform: `translate(${x}px, ${y}px)`,
     },
-}))<DragPreviewWrapperProps>``;
+})) <DragPreviewWrapperProps>``;

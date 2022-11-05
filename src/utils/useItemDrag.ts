@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 export const useItemDrag = (item: DragItem) => {
     const { dispatch } = useStateContext();
-    const [, drag, preview] = useDrag({
+    const [isDragging, drag, preview] = useDrag({
         type: item.type,
         item: () => {
             dispatch(setDraggedItem(item));
@@ -17,5 +17,5 @@ export const useItemDrag = (item: DragItem) => {
     useEffect(() => {
         preview(getEmptyImage(), { captureDraggingState: true });
     }, [preview]);
-    return { drag };
+    return { drag, isDragging };
 };

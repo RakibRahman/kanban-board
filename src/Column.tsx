@@ -1,5 +1,5 @@
 import { ColumnContainer, ColumnTitle } from './styles';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useItemDrag } from './utils/useItemDrag';
 import { isHidden } from './utils/isHidden';
 import { AddNewItem } from './AddNewItem';
@@ -8,6 +8,8 @@ import { addTask, moveTask, moveList, setDraggedItem } from './context/actions';
 import { Card } from './Card';
 import { useDrop } from 'react-dnd';
 import { DragItem } from './DragItem';
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+
 type ColumnProps = {
     text: string;
     id: string;
@@ -42,14 +44,21 @@ export const Column = ({ text, id, isPreview }: ColumnProps) => {
             }
         },
     });
-    const { drag } = useItemDrag({ type: 'Column', id, text });
+    const { drag, isDragging } = useItemDrag({ type: 'Column', id, text });
     drag(drop(ref));
+    const [cardList] = useAutoAnimate<HTMLDivElement>(/* optional config */)
+    useEffect(() => {
+
+        console.log(isDragging);
+    }, [isDragging])
     return (
         <ColumnContainer isPreview={isPreview} ref={ref} isHidden={isHidden(draggedItem, 'Column', id, isPreview)}>
             <ColumnTitle>{text}</ColumnTitle>
-            {tasks.map((task) => (
-                <Card text={task.text} id={task.id} key={task.id} columnId={task.id} />
-            ))}
+            <div ref={draggedItem ? null : cardList}>
+                {tasks.map((task) => (
+                    <Card text={task.text} id={task.id} key={task.id} columnId={id} />
+                ))}
+            </div>
             <AddNewItem toggleButtonText="➕ Add Another Task" onAdd={(text) => dispatch(addTask(text, id))} dark />
         </ColumnContainer>
     );

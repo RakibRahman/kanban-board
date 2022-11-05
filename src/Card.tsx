@@ -1,10 +1,10 @@
-import { CardContainer } from './styles';
 import { useRef } from 'react';
-import { useItemDrag } from './utils/useItemDrag';
 import { useDrop } from 'react-dnd';
-import { useStateContext } from './context/AppStateContext';
-import { isHidden } from './utils/isHidden';
 import { moveTask } from './context/actions';
+import { useStateContext } from './context/AppStateContext';
+import { CardContainer } from './styles';
+import { isHidden } from './utils/isHidden';
+import { useItemDrag } from './utils/useItemDrag';
 
 type CardProps = {
     text: string;
@@ -18,7 +18,6 @@ export const Card = ({ text, id, columnId, isPreview }: CardProps) => {
     const { drag } = useItemDrag({
         type: 'Card',
         id,
-
         text,
         columnId,
     });
@@ -34,11 +33,11 @@ export const Card = ({ text, id, columnId, isPreview }: CardProps) => {
             if (draggedItem.id === id) {
                 return;
             }
-            console.log(draggedItem);
             dispatch(moveTask(draggedItem.id, id, draggedItem.columnId, columnId));
         },
     });
     drag(drop(ref));
+
     return (
         <CardContainer isHidden={isHidden(draggedItem, 'Card', id, isPreview)} isPreview={isPreview} ref={ref}>
             {text}
